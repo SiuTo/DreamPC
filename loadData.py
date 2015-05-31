@@ -1,6 +1,6 @@
 #! /usr/bin/env python3.4
 
-def loadcsv(dataFileName, distriFileName, resultFileName):
+def loadcsv(dataFileName, flag):
 	dataFile = open(dataFileName, "r")
 	lines = dataFile.readlines()
 	data = [lines[i].strip("\n").split(",") for i in range(len(lines))]
@@ -10,7 +10,7 @@ def loadcsv(dataFileName, distriFileName, resultFileName):
 		for j in range(n):
 			data[i][j] = data[i][j].strip('"')
 
-	distriFile = open(distriFileName, "w")
+	distriFile = open("distribution_"+flag+".csv", "w")
 	lines = ["Feature, # of Missing, # of Positive\n"]
 	for j in range(n):
 		cnt = 0
@@ -49,7 +49,8 @@ def loadcsv(dataFileName, distriFileName, resultFileName):
 			data[i][15] = 4
 		elif data[i][15]=="Other":
 			data[i][15] = 5
-		
+
+		'''		
 		# HEIGHTBL
 		if data[i][18]=="":
 			data[i][17] = round(float(data[i][17])/20)
@@ -64,7 +65,8 @@ def loadcsv(dataFileName, distriFileName, resultFileName):
 				data[i][19] = int(data[i][19][2:3])//10
 			else:
 				data[i][19] = int(data[i][19][2:4])//10
-		
+		'''
+
 		# NON_TARGET-MHVASC
 		for j in range(54, 131):
 			if data[i][j]=="":
@@ -76,20 +78,24 @@ def loadcsv(dataFileName, distriFileName, resultFileName):
 	feature = {}
 	for i in range(n):
 		feature[data[0][i]] = i
-	choose = [False]*n
+	choose = []
 	for st in featureFile.readlines():
-		choose[feature[st.strip("\n")]] = True
+		choose.append(feature[st.strip("\n")])
 	
-	resultFile = open(resultFileName, "w")
+	resultFile = open("data_"+flag+".txt", "w")
 	lines = []
-	for i in range(m):
-		line = ""
-		for j in range(0, n):
-			if choose[j]:
-				line += str(data[i][j])+","
-		lines.append(line[:-1]+"\n")
+	for i in range(1, m):
+		line = str(data[i][choose[0]])
+		for j in range(1, len(choose)):
+			line += " {}:{}".format(j, data[i][choose[j]])
+		lines.append(line+"\n")
 	resultFile.writelines(lines)
 
-loadcsv("CoreTable_training.csv", "distribution_train.csv", "data_train.csv")
-#loadcsv("CoreTable_leaderboard.csv", "distribution_test.csv", "data_test.csv")
+	if flag=="test":
+		prtFile = open("prt_for_test.txt", "w")
+		lines = [data[i][2]+"\n" for i in range(1, m)]
+		prtFile.writelines(lines)
+
+loadcsv("CoreTable_training.csv", "train")
+loadcsv("CoreTable_leaderboard.csv", "test")
 
