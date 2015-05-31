@@ -72,13 +72,22 @@ def loadcsv(dataFileName, distriFileName, resultFileName):
 			else:
 				data[i][j] = 1
 
+	featureFile = open("features_list.txt", "r")
+	feature = {}
+	for i in range(n):
+		feature[data[0][i]] = i
+	choose = [False]*n
+	for st in featureFile.readlines():
+		choose[feature[st.strip("\n")]] = True
+	
 	resultFile = open(resultFileName, "w")
 	lines = []
 	for i in range(m):
-		line = data[i][0]
-		for j in range(1, n):
-			line += ","+str(data[i][j])
-		lines.append(line+"\n")
+		line = ""
+		for j in range(0, n):
+			if choose[j]:
+				line += str(data[i][j])+","
+		lines.append(line[:-1]+"\n")
 	resultFile.writelines(lines)
 
 loadcsv("CoreTable_training.csv", "distribution_train.csv", "data_train.csv")
