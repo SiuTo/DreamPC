@@ -92,7 +92,7 @@ def loadcsv(dataFileName, flag):
 	resultFile.writelines(lines)
 
 	if flag=="test":
-		prtFile = open("prt_for_test.txt", "w")
+		prtFile = open("rpt_for_test.txt", "w")
 		lines = [data[i][2]+"\n" for i in range(1, m)]
 		prtFile.writelines(lines)
 
