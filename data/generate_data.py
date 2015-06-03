@@ -1,17 +1,15 @@
 #! /usr/bin/env python3.4
 
-def loadcsv(dataFileName, flag):
-	dataFile = open(dataFileName, "r")
-	lines = dataFile.readlines()
-	data = [lines[i].strip("\n").split(",") for i in range(len(lines))]
+import csv
+
+def loadData(dataFileName, flag):
+	dataCSV = csv.reader(open(dataFileName, "r"))
+	data = [row for row in dataCSV]
 	m = len(data)
 	n = len(data[0])
-	for i in range(m):
-		for j in range(n):
-			data[i][j] = data[i][j].strip('"')
 
-	distriFile = open("distribution_"+flag+".csv", "w")
-	lines = ["Feature, # of Missing, # of Positive\n"]
+	distriCSV = csv.writer(open("distribution_"+flag+".csv", "w"))
+	distribution = [["Feature", "# of Missing", "# of Positive"]]
 	for j in range(n):
 		cnt = 0
 		for i in range(1, m):
@@ -20,10 +18,10 @@ def loadcsv(dataFileName, flag):
 					data[i][j] = "0"
 				cnt += 1
 		if j==4 or j>=54:
-			lines.append("{},0,{}\n".format(data[0][j], m-1-cnt))
+			distribution.append([data[0][j], 0, m-1-cnt])
 		else:
-			lines.append("{},{},\n".format(data[0][j], cnt))
-	distriFile.writelines(lines)
+			distribution.append([data[0][j], cnt, ""])
+	distriCSV.writerows(distribution)
 
 	for i in range(1, m):
 		# DEATH
@@ -82,20 +80,17 @@ def loadcsv(dataFileName, flag):
 	for st in featureFile.readlines():
 		choose.append(feature[st.strip("\n")])
 	
-	resultFile = open("data_"+flag+".txt", "w")
+	resultCSV = csv.writer(open("data_"+flag+".csv", "w"))
 	lines = []
-	for i in range(1, m):
-		line = str(data[i][choose[0]])
-		for j in range(1, len(choose)):
-			line += " {}:{}".format(j, data[i][choose[j]])
-		lines.append(line+"\n")
-	resultFile.writelines(lines)
+	for i in range(0, m):
+		lines.append([data[i][x] for x in choose])
+	resultCSV.writerows(lines)
 
 	if flag=="test":
 		prtFile = open("rpt_for_test.txt", "w")
 		lines = [data[i][2]+"\n" for i in range(1, m)]
 		prtFile.writelines(lines)
 
-loadcsv("CoreTable_training.csv", "train")
-loadcsv("CoreTable_leaderboard.csv", "test")
+loadData("CoreTable_training.csv", "train")
+loadData("CoreTable_leaderboard.csv", "test")
 
