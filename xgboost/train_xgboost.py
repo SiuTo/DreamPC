@@ -2,7 +2,7 @@
 
 import xgboost as xgb
 
-def train():
+def train(flag):
 	dtrain = xgb.DMatrix("data_train.txt")
 
 	param = {'bst:max_depth':2, 'bst:eta':1, 'silent':1, 'objective':'reg:linear' }
@@ -17,12 +17,12 @@ def train():
 	dtest = xgb.DMatrix("data_test.txt")
 	ypred = bst.predict(dtest)
 
-	pred1aFile = open("pred_1a.txt", "w")
+	pred1aFile = open("pred_1a_"+flag+".txt", "w")
 	low, high = min(ypred)-10, max(ypred)+10
 	lines = [str((high-ypred[i])/(high-low))+"\n" for i in range(len(ypred))]
 	pred1aFile.writelines(lines)
 
-	pred1bFile = open("pred_1b.txt", "w")
+	pred1bFile = open("pred_1b_"+flag+".txt", "w")
 	lines = [str(ypred[i])+"\n" for i in range(len(ypred))]
 	pred1bFile.writelines(lines)
 

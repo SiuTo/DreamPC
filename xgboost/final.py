@@ -11,5 +11,5 @@ def loadFinalData(flag):
 
 loadFinalData("train")
 loadFinalData("test")
-train()
+train("final")
 

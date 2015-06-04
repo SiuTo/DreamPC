@@ -7,19 +7,20 @@ import random
 
 dataCSV = csv.reader(open("../data/data_train.csv", "r"))
 data = [row for row in dataCSV]
+del data[0]
 random.shuffle(data)
-pos = len(data)//10
+m = len(data)//10
 
-realFile = open("real_value.csv", "w")
-lines = ["LKADT_P,DEATH\n"]
-for i in range(pos):
-	lines.append("{},{}\n".format(data[i][0], data[i][1]))
-realFile.writelines(lines)
+for k in range(10):
+	left, right = k*m, min((k+1)*m, len(data))
+	realFile = open("real_value_"+str(k)+".csv", "w")
+	lines = ["LKADT_P,DEATH\n"]
+	for i in range(left, right):
+		lines.append("{},{}\n".format(data[i][0], data[i][1]))
+	realFile.writelines(lines)
 
-for i in range(pos):
-	data[i][0] = 0
-formatData(data[pos:], "train")
-formatData(data[:pos], "test")
+	formatData(data[:left]+data[right:], "train")
+	formatData(data[left:right], "test")
 
-train()
+	train(str(k))
 
