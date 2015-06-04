@@ -83,6 +83,14 @@ def loadData(dataFileName, flag):
 	resultCSV = csv.writer(open("data_"+flag+".csv", "w"))
 	lines = []
 	for i in range(0, m):
+		if flag=="train":
+			miss = False
+			for x in choose:
+				if 5<=x<=53 and data[i][x]==0:
+					miss = True
+					break
+			if miss:
+				continue
 		lines.append([data[i][x] for x in choose])
 	resultCSV.writerows(lines)
 
