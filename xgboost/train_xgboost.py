@@ -23,6 +23,6 @@ def train(flag):
 	pred1aFile.writelines(lines)
 
 	pred1bFile = open("pred_1b_"+flag+".txt", "w")
-	lines = [str(ypred[i])+"\n" for i in range(len(ypred))]
+	lines = [str(int(round(ypred[i])))+"\n" for i in range(len(ypred))]
 	pred1bFile.writelines(lines)
 

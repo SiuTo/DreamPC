@@ -12,7 +12,7 @@ def merge(model):
 	predFile = open(model+"/pred_1b_final.txt", "r")
 	pred = predFile.readlines()
 	submitFile = open(model+"/submission_1b.csv", "w")
-	lines = ["RPT,RISK\n"]
+	lines = ["RPT,TIMETOEVENT\n"]
 	for i in range(len(rpt)):
 		lines.append(rpt[i].strip("\n")+","+pred[i])
 	submitFile.writelines(lines)
