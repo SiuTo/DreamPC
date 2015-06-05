@@ -3,6 +3,10 @@ __pycache__
 .~*#
 *.pyc
 
+data_*.csv
+distribution_*.csv
+rpt_for_test.txt
+
 xgboost/*.csv
 xgboost/*.txt
 

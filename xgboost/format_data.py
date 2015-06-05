@@ -3,6 +3,9 @@
 import csv
 
 def formatData(data, flag):
+	if flag=="test":
+		for i in range(len(data)):
+			data[i][1] = 1
 	dataTxt = open("data_"+flag+".txt", "w")
 	lines = []
 	for i in range(len(data)):

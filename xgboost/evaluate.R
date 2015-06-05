@@ -5,7 +5,7 @@ source("../score.R")
 iAUC <- 0.0
 RMSE <- 0.0
 
-"cIndex,auc12,auc18,auc24,iAUC,RMSE"
+print(paste("cIndex", "auc12", "auc18", "auc24", "iAUC", "RMSE", sep=" "), quote=FALSE)
 
 for (i in 0:9)
 {
@@ -16,9 +16,9 @@ for (i in 0:9)
 	dpred_1b <- read.table(paste("pred_1b_", i, ".txt", sep=""))
 	b <- score_q1b(dpred_1b[,1], dtest[, "LKADT_P"], dtest[, "DEATH"])
 	RMSE <- RMSE + b
-	print(paste(a$cIndex, a$auc12, a$auc18, a$auc24, a$iAUC, b, sep=","))
+	print(paste(round(a$cIndex, 3), round(a$auc12, 3), round(a$auc18, 3), round(a$auc24, 3), round(a$iAUC, 3), round(b, 3), sep=" "), quote=FALSE)
 }
 
-paste("iAUC: ", iAUC/10)
-paste("RMSE: ", RMSE/10)
+print(paste("iAUC: ", round(iAUC/10, 3)), quote=FALSE)
+print(paste("RMSE: ", round(RMSE/10, 3)), quote=FALSE)
 
