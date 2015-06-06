@@ -5,11 +5,9 @@ import xgboost as xgb
 def train(flag):
 	dtrain = xgb.DMatrix("data_train.txt")
 
-	param = {'bst:max_depth':2, 'bst:eta':1, 'silent':1, 'objective':'reg:linear' }
-	param['nthread'] = 4
+	param = {'silent':1, 'bst:eta':0.2, 'bst:gamma':2000, 'objective':'reg:linear' }
 	plst = param.items()
 	plst += [('eval_metric', 'auc')]
-	plst += [('eval_metric', 'ams@0')]
 
 	num_round = 10
 	bst = xgb.train(plst, dtrain, num_round)

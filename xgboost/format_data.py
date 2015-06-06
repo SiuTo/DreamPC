@@ -10,8 +10,8 @@ def formatData(data, flag):
 	lines = []
 	for i in range(len(data)):
 		line = str(data[i][0])
-		for j in range(1, len(data[i])):
-			line += " {}:{}".format(j, data[i][j])
+		for j in range(2, len(data[i])):
+			line += " {}:{}".format(j-1, data[i][j])
 		lines.append(line+"\n")
 	dataTxt.writelines(lines)
 
