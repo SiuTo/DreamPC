@@ -15,3 +15,7 @@ clean:
 	rm -f xgboost/*.csv
 	rm -f xgboost/*.txt
 
+	rm -f rfsrc/*~
+	rm -f rfsrc/*.pyc
+	rm -f rfsrc/*.csv
+

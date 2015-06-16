@@ -10,3 +10,6 @@ rpt_for_test.txt
 xgboost/*.csv
 xgboost/*.txt
 
+rfsrc/*.csv
+rfsrc/*.txt
+
