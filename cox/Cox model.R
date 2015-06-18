@@ -1,3 +1,4 @@
+#! /usr/bin/env Rscript
 
 #this is just a demo of using Cox model to estimate the patients' survival radio
 
@@ -16,7 +17,7 @@ library('survival')
 
 #choose CoreTable as the features set
 #input coretable data
-rawMatrix <- as.matrix(read.csv('CoreTable_training.csv',header=T))
+rawMatrix <- as.matrix(read.csv('../data/CoreTable_training.csv',header=T))
 
 
 #choose 8 factors mentioned in baseline method:
