@@ -17,10 +17,11 @@ for (i in 0:0)
 	write.table(dtrain, paste("data_train_", i, ".txt", sep=""), quote=FALSE, row.names=FALSE)
 	write.table(dtest, paste("data_test_", i, ".txt", sep=""), quote=FALSE, row.names=FALSE)
 
-	"Training..."
+	print(paste("Fold:", i))
+	print("Training...")
 	rf.obj <- rfsrc(Surv(LKADT_P, DEATH) ~ ., dtrain, nsplit=3, importance="none")
 
-	"Predicting..."
+	print("Predicting...")
 	rf.pred <- predict(rf.obj, dtest)
 	l <- min(rf.pred$predicted)-10
 	h <- max(rf.pred$predicted)+10
@@ -29,11 +30,11 @@ for (i in 0:0)
 	dpred_1b <- round(rf.pred$predicted)
 	write.table(dpred_1b, "pred_1b.txt", quote=FALSE, row.names=FALSE, col.names=FALSE)
 
-	"Evaluating..."
+	print("Evaluating...")
 	a <- score_q1a(dtest[, "LKADT_P"], dtest[, "DEATH"], dpred_1a)
 	b <- score_q1b(dpred_1b, dtest[, "LKADT_P"], dtest[, "DEATH"])
 	cat(round(c(a$cIndex, a$auc12, a$auc18, a$auc24, a$iAUC, b), 3), "\n", file="result.txt", append=TRUE)
 
-	"Finish."
+	print("Finish.")
 }
 
