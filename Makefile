@@ -18,4 +18,5 @@ clean:
 	rm -f rfsrc/*~
 	rm -f rfsrc/*.pyc
 	rm -f rfsrc/*.csv
+	rm -f rfsrc/*.txt
 

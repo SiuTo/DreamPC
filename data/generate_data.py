@@ -1,6 +1,7 @@
 #! /usr/bin/env python3.4
 
 import csv
+import random
 
 def loadData(dataFileName, flag):
 	dataCSV = csv.reader(open(dataFileName, "r"))
@@ -81,8 +82,9 @@ def loadData(dataFileName, flag):
 		choose.append(feature[st.strip("\n")])
 	
 	resultCSV = csv.writer(open("data_"+flag+".csv", "w"))
-	lines = []
-	for i in range(0, m):
+	rows = []
+	head = [data[0][x] for x in choose]
+	for i in range(1, m):
 		if flag=="train":
 			miss = False
 			for x in choose:
@@ -91,8 +93,11 @@ def loadData(dataFileName, flag):
 					break
 			if miss:
 				continue
-		lines.append([data[i][x] for x in choose])
-	resultCSV.writerows(lines)
+		rows.append([data[i][x] for x in choose])
+	if flag=="train":
+		random.seed(1)
+		random.shuffle(rows)
+	resultCSV.writerows([head]+rows)
 
 	if flag=="test":
 		prtFile = open("rpt_for_test.txt", "w")

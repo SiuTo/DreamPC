@@ -3,13 +3,10 @@
 from format_data import formatData
 from train_xgboost import train
 import csv
-import random
 
 dataCSV = csv.reader(open("../data/data_train.csv", "r"))
 data = [row for row in dataCSV]
 del data[0]
-random.seed(1)
-random.shuffle(data)
 m = (len(data)-1)//10+1
 data_origin = []
 for i in range(len(data)):
