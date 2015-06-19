@@ -31,9 +31,13 @@ def loadData(dataFileName, flag):
 		else:
 			data[i][4] = 1
 
-		# AGEGRP
-		if data[i][13]==">=85":
-			data[i][13] = 85
+		# AGEGRP2
+		if data[i][14]=="18-64":
+			data[i][14] = 0
+		elif data[i][14]=="65-74":
+			data[i][14] = 1
+		elif data[i][14]==">=75":
+			data[i][14] = 2
 
 		# RACE_C
 		if data[i][15]=="Missing":
