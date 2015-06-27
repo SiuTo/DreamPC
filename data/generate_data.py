@@ -2,6 +2,7 @@
 
 import csv
 import random
+from math import floor
 
 def loadData(dataFileName, flag):
 	dataCSV = csv.reader(open(dataFileName, "r"))
@@ -33,42 +34,64 @@ def loadData(dataFileName, flag):
 
 		# AGEGRP2
 		if data[i][14]=="18-64":
-			data[i][14] = 0
-		elif data[i][14]=="65-74":
 			data[i][14] = 1
-		elif data[i][14]==">=75":
+		elif data[i][14]=="65-74":
 			data[i][14] = 2
+		elif data[i][14]==">=75":
+			data[i][14] = 3
 
 		# RACE_C
 		if data[i][15]=="Missing":
 			data[i][15] = 0
-		elif data[i][15]=="White":
+		elif data[i][15]=="Asian":
 			data[i][15] = 1
 		elif data[i][15]=="Black":
 			data[i][15] = 2
-		elif data[i][15]=="Asian":
+		elif data[i][15]=="White":
 			data[i][15] = 3
 		elif data[i][15]=="Hispanic":
 			data[i][15] = 4
 		elif data[i][15]=="Other":
 			data[i][15] = 5
 
-		'''		
-		# HEIGHTBL
+		# HGTBLCAT
 		if data[i][18]=="":
-			data[i][17] = round(float(data[i][17])/20)
+			if data[i][17]=="0":
+				data[i][18] = 0
+			else:
+				data[i][18] = floor(float(data[i][17])/20)
 		else:
-			data[i][17] = int(data[i][18][2:3])//2
+			data[i][18] = int(data[i][18][2:4])//2
 		
-		# WEIGHTBL
+		# WGTBLCAT
 		if data[i][20]=="":
-			data[i][19] = round(float(data[i][19])/10)
+			if data[i][19]=="0":
+				data[i][20] = 0
+			else:
+				data[i][20] = floor(float(data[i][19])/10)
 		else:
 			if data[i][20][4]=="-":
-				data[i][19] = int(data[i][19][2:3])//10
+				data[i][20] = int(data[i][20][2:4])//10
 			else:
-				data[i][19] = int(data[i][19][2:4])//10
-		'''
+				data[i][20] = int(data[i][20][2:5])//10
+
+		# REGION_C
+		if data[i][21]=="MISSING":
+			data[i][21] = 0
+		elif data[i][21]=="AFRICA":
+			data[i][21] = 1
+		elif data[i][21]=="ASIA/PACIFIC":
+			data[i][21] = 2
+		elif data[i][21]=="EASTERN EUROPE":
+			data[i][21] = 3
+		elif data[i][21]=="WESTERN EUROPE":
+			data[i][21] = 4
+		elif data[i][21]=="NORTH AMERICA":
+			data[i][21] = 5
+		elif data[i][21]=="SOUTH AMERICA":
+			data[i][21] = 6
+		elif data[i][21]=="OTHER":
+			data[i][21] = 7
 
 		# NON_TARGET-MHVASC
 		for j in range(54, 131):
