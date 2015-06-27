@@ -21,12 +21,12 @@ for (i in 1:10)
 
 	cat("\tPredicting...\n")
 	rf.pred <- predict(rf.obj, dtest)
-	#l <- min(rf.pred$predicted)-10
-	#h <- max(rf.pred$predicted)+10
-	#dpred_1a <- round((h-rf.pred$predicted)/(h-l), 3)
 	dpred_1a <- round(rf.pred$predicted, 3)
 	write.table(dpred_1a, paste("pred_1a_", i-1, ".txt", sep=""), quote=FALSE, row.names=FALSE, col.names=FALSE)
-	dpred_1b <- round(rf.pred$predicted)
+
+	survival <- rf.pred$survival
+	delta <- survival[, 1:(ncol(survival)-1)]-survival[,2:ncol(survival)]
+	dpred_1b <- rf.pred$time.interest[apply(delta, 1, which.max)]
 	write.table(dpred_1b, paste("pred_1b_", i-1, ".txt", sep=""), quote=FALSE, row.names=FALSE, col.names=FALSE)
 
 	cat("\tEvaluating...\n")
@@ -37,6 +37,7 @@ for (i in 1:10)
 
 	cat("\tFinish.\n\n")
 }
+
 avg <- c()
 for (i in 1:ncol(score))
 	avg <- c(avg, mean(score[,i]))
