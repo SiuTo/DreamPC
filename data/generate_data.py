@@ -115,7 +115,7 @@ def loadData(dataFileName, flag):
 		if flag=="train":
 			miss = False
 			for x in choose:
-				if 5<=x<=53 and data[i][x]==0:
+				if 5<=x<=53 and x!=21 and data[i][x]==0:
 					miss = True
 					break
 			if miss:
