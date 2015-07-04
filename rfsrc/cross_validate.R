@@ -1,9 +1,7 @@
 #! /usr/bin/env Rscript
 
 source("../score.R")
-library("randomForestSRC")
-
-options(rf.cores=detectCores()-1, mc.cores=detectCores()-1)
+source("train_rfsrc.R")
 
 data <- read.csv("../data/data_train.csv")
 folds <- split(1:nrow(data), 1:10)
@@ -16,19 +14,8 @@ for (i in 1:10)
 	write.csv(dtest, paste("data_test_", i-1, ".csv", sep=""), quote=FALSE, row.names=FALSE)
 
 	cat("Fold:", i-1, "\n")
-	cat("\tTraining...\n")
-	rf.obj <- rfsrc(Surv(LKADT_P, DEATH) ~ ., dtrain, nsplit=3, importance="none")
-
-	cat("\tPredicting...\n")
-	rf.pred <- predict(rf.obj, dtest)
-	dpred_1a <- round(rf.pred$predicted, 3)
-	write.table(dpred_1a, paste("pred_1a_", i-1, ".txt", sep=""), quote=FALSE, row.names=FALSE, col.names=FALSE)
-
-	survival <- rf.pred$survival
-	delta <- survival[, 1:(ncol(survival)-1)]-survival[,2:ncol(survival)]
-	dpred_1b <- rf.pred$time.interest[apply(delta, 1, which.max)]
-	write.table(dpred_1b, paste("pred_1b_", i-1, ".txt", sep=""), quote=FALSE, row.names=FALSE, col.names=FALSE)
-
+	train(dtrain, dtest, i-1)
+	
 	cat("\tEvaluating...\n")
 	a <- score_q1a(dtest[, "LKADT_P"], dtest[, "DEATH"], dpred_1a)
 	b <- score_q1b(dpred_1b, dtest[, "LKADT_P"], dtest[, "DEATH"])

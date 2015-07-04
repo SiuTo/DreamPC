@@ -100,7 +100,7 @@ def loadData(dataFileName, flag):
 			else:
 				data[i][j] = 1
 
-	featureFile = open("features_list.txt", "r")
+	featureFile = open("features/origin.txt", "r")
 	feature = {}
 	for i in range(n):
 		feature[data[0][i]] = i
