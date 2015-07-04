@@ -123,8 +123,10 @@ def loadData(dataFileName, flag):
 				continue
 		else:
 			for x in choose:
-				if data[i][x]==".":
+				if data[0][x]=="LKADT_P":
 					data[i][x] = "0"
+				elif data[i][x]==".":
+					data[i][x] = "NA"
 		rows.append([data[i][x] for x in choose])
 	if flag=="train":
 		random.seed(1)

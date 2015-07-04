@@ -8,6 +8,7 @@ train <- function(dtrain, dtest, flag)
 {
 	cat("\tImputing...\n")
 	dtrain <- impute.rfsrc(Surv(LKADT_P, DEATH) ~ ., dtrain, nsplit=2)
+	dtest <- impute.rfsrc(data=dtest, nsplit=2)
 
 	cat("\tTraining...\n")
 	rf.obj <- rfsrc(Surv(LKADT_P, DEATH) ~ ., dtrain, nsplit=2)
