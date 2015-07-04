@@ -121,6 +121,10 @@ def loadData(dataFileName, flag):
 						data[i][x] = "0"
 			if miss:
 				continue
+		else:
+			for x in choose:
+				if data[i][x]==".":
+					data[i][x] = "0"
 		rows.append([data[i][x] for x in choose])
 	if flag=="train":
 		random.seed(1)
