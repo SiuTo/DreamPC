@@ -6,6 +6,9 @@ options(rf.cores=detectCores()-1, mc.cores=detectCores()-1)
 
 train <- function(dtrain, dtest, flag)
 {
+	cat("\tImputing...\n")
+	dtrain <- impute.rfsrc(Surv(LKADT_P, DEATH) ~ ., dtrain, nsplit=2)
+
 	cat("\tTraining...\n")
 	rf.obj <- rfsrc(Surv(LKADT_P, DEATH) ~ ., dtrain, nsplit=2)
 

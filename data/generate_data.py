@@ -118,7 +118,7 @@ def loadData(dataFileName, flag):
 						miss = True
 						break
 					else:
-						data[i][x] = "0"
+						data[i][x] = "NA"
 			if miss:
 				continue
 		else:
