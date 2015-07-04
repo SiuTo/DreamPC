@@ -14,11 +14,11 @@ for (i in 1:10)
 	write.csv(dtest, paste("data_test_", i-1, ".csv", sep=""), quote=FALSE, row.names=FALSE)
 
 	cat("Fold:", i-1, "\n")
-	train(dtrain, dtest, i-1)
+	dpred <- train(dtrain, dtest, i-1)
 	
 	cat("\tEvaluating...\n")
-	a <- score_q1a(dtest[, "LKADT_P"], dtest[, "DEATH"], dpred_1a)
-	b <- score_q1b(dpred_1b, dtest[, "LKADT_P"], dtest[, "DEATH"])
+	a <- score_q1a(dtest[, "LKADT_P"], dtest[, "DEATH"], dpred$a)
+	b <- score_q1b(dpred$b, dtest[, "LKADT_P"], dtest[, "DEATH"])
 
 	score <- rbind(score, round(c(a$cIndex, a$auc12, a$auc18, a$auc24, a$iAUC, b), 3))
 

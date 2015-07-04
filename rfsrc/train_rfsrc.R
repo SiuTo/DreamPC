@@ -18,5 +18,7 @@ train <- function(dtrain, dtest, flag)
 	delta <- survival[, 1:(ncol(survival)-1)]-survival[,2:ncol(survival)]
 	dpred_1b <- rf.pred$time.interest[apply(delta, 1, which.max)]
 	write.table(dpred_1b, paste("pred_1b_", flag, ".txt", sep=""), quote=FALSE, row.names=FALSE, col.names=FALSE)
+
+	return(list(a=dpred_1a, b=dpred_1b))
 }
 
