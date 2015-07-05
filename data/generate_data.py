@@ -138,7 +138,7 @@ def loadData(dataFileName, flag):
 		prtFile.writelines(lines)
 
 distriCSV = csv.writer(open("distribution.csv", "w"))
-distribution = [["Feature", "# of Missing of train", "# of Positive train", "# of Missing of test", "# of Positive test"]]
+distribution = [["Feature", "# of Missing in train", "# of Positive in train", "# of Missing in test", "# of Positive in test"]]
 loadData("CoreTable_training.csv", "train")
 loadData("CoreTable_leaderboard.csv", "test")
 distriCSV.writerows(distribution)
