@@ -10,18 +10,17 @@ def loadData(dataFileName, flag):
 	m = len(data)
 	n = len(data[0])
 
-	distriCSV = csv.writer(open("distribution_"+flag+".csv", "w"))
-	distribution = [["Feature", "# of Missing", "# of Positive"]]
 	for j in range(n):
 		cnt = 0
 		for i in range(1, m):
 			if data[i][j]=="" or data[i][j]==">=85" or data[i][j]=="Missing" or data[i][j]=="MISSING" or data[i][j]==".":
 				cnt += 1
+		if flag=="train":
+			distribution.append([data[0][j]])
 		if j==4 or j>=54:
-			distribution.append([data[0][j], 0, m-1-cnt])
+			distribution[j+1] += [0, m-1-cnt]
 		else:
-			distribution.append([data[0][j], cnt, ""])
-	distriCSV.writerows(distribution)
+			distribution[j+1] += [cnt, ""]
 
 	for i in range(1, m):
 		# DEATH
@@ -138,6 +137,9 @@ def loadData(dataFileName, flag):
 		lines = [data[i][2]+"\n" for i in range(1, m)]
 		prtFile.writelines(lines)
 
+distriCSV = csv.writer(open("distribution.csv", "w"))
+distribution = [["Feature", "# of Missing of train", "# of Positive train", "# of Missing of test", "# of Positive test"]]
 loadData("CoreTable_training.csv", "train")
 loadData("CoreTable_leaderboard.csv", "test")
+distriCSV.writerows(distribution)
 
