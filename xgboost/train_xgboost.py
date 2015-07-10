@@ -5,7 +5,7 @@ import xgboost as xgb
 def train(flag):
 	dtrain = xgb.DMatrix("data_train.txt")
 
-	param = {'silent':1, 'bst:eta':0.2, 'bst:gamma':2000, 'objective':'reg:linear' }
+	param = {'silent':1, 'bst:eta':0.2, 'bst:gamma':0, 'objective':'reg:linear' }
 	plst = param.items()
 	plst += [('eval_metric', 'auc')]
 
