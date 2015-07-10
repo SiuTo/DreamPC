@@ -97,6 +97,27 @@ def loadData(dataFileName, flag):
 			else:
 				data[i][j] = "1"
 
+	# Normalization
+	if flag=="train":
+		for j in range(29, 54):
+			s, cnt = 0.0, 0
+			for i in range(1, m):
+				if data[i][j]!=".":
+					s += float(data[i][j])
+					cnt += 1
+			mean[j] = s/cnt
+			s = 0.0
+			for i in range(1, m):
+				if data[i][j]!=".":
+					s += (float(data[i][j])-mean[j])**2
+			deviation[j] = (s/cnt)**0.5
+
+	for j in range(29, 54):
+		for i in range(1, m):
+			if data[i][j]!=".":
+				data[i][j] = str(round((float(data[i][j])-mean[j])/deviation[j], 6))
+	
+	# Features selection
 	featureFile = open("features_list.txt", "r")
 	feature = {}
 	for i in range(n):
@@ -127,6 +148,8 @@ def loadData(dataFileName, flag):
 				elif data[i][x]==".":
 					data[i][x] = "NA"
 		rows.append([data[i][x] for x in choose])
+	
+	# Shuffle data
 	if flag=="train":
 		random.seed(1)
 		random.shuffle(rows)
@@ -139,6 +162,8 @@ def loadData(dataFileName, flag):
 
 distriCSV = csv.writer(open("distribution.csv", "w"))
 distribution = [["Feature", "# of Missing in train", "# of Positive in train", "# of Missing in test", "# of Positive in test"]]
+mean = [0]*130
+deviation = [0]*130
 loadData("CoreTable_training.csv", "train")
 loadData("CoreTable_leaderboard.csv", "test")
 distriCSV.writerows(distribution)
