@@ -1,9 +1,11 @@
 #! /usr/bin/env Rscript
 
-source("../score.R")
-source("train_cox.R")
+model <- commandArgs(TRUE)[1]
 
-data <- read.csv("../data/data_train.csv")
+source("score.R")
+source(paste(model, "train.R", sep="/"))
+
+data <- read.csv("data/data_train.csv")
 folds <- split(1:nrow(data), 1:10)
 score <- c()
 for (i in 1:10)
@@ -14,11 +16,13 @@ for (i in 1:10)
 	status <- dtest[, "DEATH"]
 	dtest[, "LKADT_P"] <- 0
 	dtest[, "DEATH"] <- 1
-	write.csv(dtrain, paste("data_train_", i-1, ".csv", sep=""), quote=FALSE, row.names=FALSE)
-	write.csv(dtest, paste("data_test_", i-1, ".csv", sep=""), quote=FALSE, row.names=FALSE)
+	write.csv(dtrain, paste(model, "/data_train_", i-1, ".csv", sep=""), quote=FALSE, row.names=FALSE)
+	write.csv(dtest, paste(model, "/data_test_", i-1, ".csv", sep=""), quote=FALSE, row.names=FALSE)
 
 	cat("Fold:", i-1, "\n")
-	dpred <- train(dtrain, dtest, i-1)
+	dpred <- train(dtrain, dtest)
+	write.table(dpred$a, paste(model, "/pred_1a_", i-1, ".txt", sep=""), quote=FALSE, row.names=FALSE, col.names=FALSE)
+	write.table(dpred$b, paste(model, "/pred_1b_", i-1, ".txt", sep=""), quote=FALSE, row.names=FALSE, col.names=FALSE)
 	
 	cat("\tEvaluating...\n")
 	a <- score_q1a(time, status, dpred$a)

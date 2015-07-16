@@ -3,16 +3,8 @@ __pycache__
 .~*#
 *.pyc
 
-data_*.csv
-distribution.csv
-rpt_for_test.txt
-
-xgboost/*.csv
-xgboost/*.txt
-
-rfsrc/*.csv
-rfsrc/*.txt
-
-cox/*.csv
-cox/*.txt
+*.csv
+*.txt
+!data/features/*.txt
+!data/CoreTable_*.csv
 
