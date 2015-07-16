@@ -14,7 +14,7 @@ cp features/file_name.txt features_list.txt
 ./generate.py
 ```
 
-* Cross valication:
+* Cross validation:
 ```
 ./cross_validate.R model_name
 ```
