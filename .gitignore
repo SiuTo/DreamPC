@@ -13,3 +13,6 @@ xgboost/*.txt
 rfsrc/*.csv
 rfsrc/*.txt
 
+cox/*.csv
+cox/*.txt
+

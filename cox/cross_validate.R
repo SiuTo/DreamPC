@@ -1,7 +1,7 @@
 #! /usr/bin/env Rscript
 
 source("../score.R")
-source("train_rfsrc.R")
+source("train_cox.R")
 
 data <- read.csv("../data/data_train.csv")
 folds <- split(1:nrow(data), 1:10)
