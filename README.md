@@ -8,14 +8,25 @@ Prostate Cancer DREAM Challenge
 
 ## Usage
 * Data generation:
-  `cd data`
-  `cp features/file_name.txt features_list.txt`
-  `./generate.py`
+```
+cd data
+cp features/file_name.txt features_list.txt
+./generate.py
+```
+
 * Cross valication:
-  `./cross_validate.R model_name`
+```
+./cross_validate.R model_name
+```
+
 * Submission:
-  `./final.R model_name`
-  `./merge_submission.py model_name`
+```
+./final.R model_name
+./merge_submission.py model_name
+```
+
 * Clean:
-  `make clean`
+```
+make clean
+```
 
