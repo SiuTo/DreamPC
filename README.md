@@ -16,7 +16,7 @@ cp features/file_name.txt features_list.txt
 
 * Cross validation:
 ```
-./cross_validate.R model_name
+./cross_validate.R question_index model_name
 ```
 
 * Submission:

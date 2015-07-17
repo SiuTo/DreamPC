@@ -11,6 +11,8 @@ def formatData(data, flag):
 	for i in range(len(data)):
 		line = str(data[i][0])
 		for j in range(2, len(data[i])):
+			if data[i][j]=="NA":
+				data[i][j] = "0"
 			line += " {}:{}".format(j-1, data[i][j])
 		lines.append(line+"\n")
 	dataTxt.writelines(lines)

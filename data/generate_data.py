@@ -17,7 +17,19 @@ def loadData(dataFileName, flag):
 				cnt += 1
 		if flag=="train":
 			distribution.append([data[0][j]])
-		if j==4 or j>=54:
+		if j==5:
+			cnt_pos = 0
+			for i in range(1, m):
+				if data[i][j]=="1":
+					cnt_pos += 1
+			distribution[j+1] += [cnt, cnt_pos]
+		elif j==7:
+			cnt_pos = 0
+			for i in range(1, m):
+				if data[i][j]!="." and int(data[i][j])<=91:
+					cnt_pos += 1
+			distribution[j+1] += [cnt, cnt_pos]
+		elif j==4 or j>=54:
 			distribution[j+1] += [0, m-1-cnt]
 		else:
 			distribution[j+1] += [cnt, ""]
@@ -134,7 +146,7 @@ def loadData(dataFileName, flag):
 			miss = False
 			for x in choose:
 				if data[i][x]==".":
-					if data[0][x] in ["BMI", "HGTBLCAT", "WGTBLCAT", "ECOG_C", "ALP", "ALT", "AST", "CA", "CREAT", "HB", "NEU", "PLT", "PSA", "TBILI", "WBC"]:
+					if data[0][x] in ["DISCONT", "BMI", "HGTBLCAT", "WGTBLCAT", "ECOG_C", "ALP", "ALT", "AST", "CA", "CREAT", "HB", "NEU", "PLT", "PSA", "TBILI", "WBC"]:
 						miss = True
 						break
 					else:
@@ -161,10 +173,11 @@ def loadData(dataFileName, flag):
 		prtFile.writelines(lines)
 
 distriCSV = csv.writer(open("distribution.csv", "w"))
-distribution = [["Feature", "# of Missing in train", "# of Positive in train", "# of Missing in test", "# of Positive in test"]]
+distribution = [["Feature", "# of Missing in train", "# of Positive in train", "# of Missing in test", "# of Positive in test", "# of Missing in validation", "# of positive in validation"]]
 mean = [0]*130
 deviation = [0]*130
 loadData("CoreTable_training.csv", "train")
 loadData("CoreTable_leaderboard.csv", "test")
+loadData("CoreTable_validation.csv", "test")
 distriCSV.writerows(distribution)
 
