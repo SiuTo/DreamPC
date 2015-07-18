@@ -1,6 +1,6 @@
 #! /usr/bin/env Rscript
 
-library("randomForestSRC")
+suppressMessages(library("randomForestSRC"))
 
 options(rf.cores=detectCores()-1, mc.cores=detectCores()-1)
 
@@ -17,8 +17,13 @@ train <- function(dtrain, dtest)
 	dpred_1a <- round((rf.pred$predicted-interval[1])/(interval[2]-interval[1]), 3)
 
 	survival <- rf.pred$survival
-	delta <- survival[, 1:(ncol(survival)-1)]-survival[,2:ncol(survival)]
-	dpred_1b <- rf.pred$time.interest[apply(delta, 1, which.max)]
+	time <- rf.pred$time.interest
+	delta.S <- survival[, -ncol(survival)]-survival[, -1]
+	delta.T <- time[-1]-time[-length(time)]
+	hazard <- c()
+	for (i in 1:nrow(survival))
+		hazard <- rbind(hazard, delta.S[i, ]/delta.T)
+	dpred_1b <- time[apply(hazard, 1, which.max)]
 
 	return(list(a=dpred_1a, b=dpred_1b))
 }
