@@ -15,10 +15,10 @@ if (question=="1")
 	{
 		dtrain <- data.frame(data[-folds[[i]],])
 		dtest <- data.frame(data[folds[[i]],])
-		time <- dtest[, "LKADT_P"]
-		status <- dtest[, "DEATH"]
-		dtest[, "LKADT_P"] <- 0
-		dtest[, "DEATH"] <- 1
+		time <- dtest$LKADT_P
+		status <- dtest$DEATH
+		dtest$LKADT_P <- 0
+		dtest$DEATH <- 1
 		write.csv(dtrain, paste(model, "/data_train_", i-1, ".csv", sep=""), quote=FALSE, row.names=FALSE)
 		write.csv(dtest, paste(model, "/data_test_", i-1, ".csv", sep=""), quote=FALSE, row.names=FALSE)
 
@@ -39,8 +39,8 @@ if (question=="1")
 	{
 		dtrain <- data.frame(data[-folds[[i]],])
 		dtest <- data.frame(data[folds[[i]],])
-		flag <- dtest[, "DISCONT"]
-		dtest[, "DISCONT"] <- 0
+		flag <- dtest$DISCONT
+		dtest$DISCONT <- 0
 		write.csv(dtrain, paste(model, "/data_train_", i-1, ".csv", sep=""), quote=FALSE, row.names=FALSE)
 		write.csv(dtest, paste(model, "/data_test_", i-1, ".csv", sep=""), quote=FALSE, row.names=FALSE)
 

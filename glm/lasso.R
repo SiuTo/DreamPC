@@ -4,7 +4,7 @@ library("glmnet")
 
 data <- read.csv("../data/data_train.csv")
 x <- as.matrix(data[, -(1:2)])
-y <- cbind(time=data[, "LKADT_P"], status=data[, "DEATH"])
+y <- cbind(time=data$LKADT_P, status=data$DEATH)
 
 cv.fit <- cv.glmnet(x, y, family="cox")
 plot(cv.fit)

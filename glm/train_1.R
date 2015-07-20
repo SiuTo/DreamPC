@@ -6,7 +6,7 @@ train <- function(dtrain, dtest)
 {
 	cat("\tTraining...\n")
 	x <- as.matrix(dtrain[, -(1:2)])
-	y <- cbind(time=dtrain[, "LKADT_P"], status=dtrain[, "DEATH"])
+	y <- cbind(time=dtrain$LKADT_P, status=dtrain$DEATH)
 	fit <- glmnet(x, y, family="cox")
 	cv.fit <- cv.glmnet(x, y, family="cox", nfold=5)
 	lambda <- cv.fit$lambda.min
