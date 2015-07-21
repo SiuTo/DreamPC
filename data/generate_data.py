@@ -41,6 +41,25 @@ def loadData(dataFileName, flag):
 		else:
 			data[i][4] = "1"
 
+		# DISCONT
+		if data[i][5]!=".":
+			if int(data[i][7])<=91:
+				if data[i][6]=="AE":
+					data[i][5] = "1"
+				elif data[i][6]=="possible_AE":
+					data[i][5] = "2"
+				elif data[i][6]=="progression":
+					data[i][5] = "3"
+			else:
+				if data[i][6]=="AE":
+					data[i][5] = "4"
+				elif data[i][6]=="possible_AE":
+					data[i][5] = "5"
+				elif data[i][6]=="progression":
+					data[i][5] = "6"
+				elif data[i][6]=="complete":
+					data[i][5] = "7"
+
 		# AGEGRP2
 		if data[i][14]=="18-64":
 			data[i][14] = "1"
@@ -51,7 +70,7 @@ def loadData(dataFileName, flag):
 
 		# RACE_C
 		if data[i][15]=="Missing":
-			data[i][15] = "0"
+			data[i][15] = "."
 		elif data[i][15]=="Asian":
 			data[i][15] = "1"
 		elif data[i][15]=="Black":
@@ -86,7 +105,7 @@ def loadData(dataFileName, flag):
 
 		# REGION_C
 		if data[i][21]=="MISSING":
-			data[i][21] = "0"
+			data[i][21] = "."
 		elif data[i][21]=="AFRICA":
 			data[i][21] = "1"
 		elif data[i][21]=="ASIA/PACIFIC":
@@ -110,8 +129,9 @@ def loadData(dataFileName, flag):
 				data[i][j] = "1"
 
 	# Normalization
+	normalize_range = [16]+list(range(29, 54)) # BMI + ...
 	if flag=="train":
-		for j in range(29, 54):
+		for j in normalize_range:
 			s, cnt = 0.0, 0
 			for i in range(1, m):
 				if data[i][j]!=".":
@@ -124,7 +144,7 @@ def loadData(dataFileName, flag):
 					s += (float(data[i][j])-mean[j])**2
 			deviation[j] = (s/cnt)**0.5
 
-	for j in range(29, 54):
+	for j in normalize_range:
 		for i in range(1, m):
 			if data[i][j]!=".":
 				data[i][j] = str(round((float(data[i][j])-mean[j])/deviation[j], 6))
@@ -146,7 +166,7 @@ def loadData(dataFileName, flag):
 			miss = False
 			for x in choose:
 				if data[i][x]==".":
-					if data[0][x] in ["DISCONT", "BMI", "HGTBLCAT", "WGTBLCAT", "ECOG_C", "ALP", "ALT", "AST", "CA", "CREAT", "HB", "NEU", "PLT", "PSA", "TBILI", "WBC"]:
+					if data[0][x] in ["DISCONT", "RACE_C", "BMI", "HGTBLCAT", "WGTBLCAT", "ECOG_C", "ALP", "ALT", "AST", "CA", "CREAT", "HB", "NEU", "PLT", "PSA", "TBILI", "WBC"]:
 						miss = True
 						break
 					else:

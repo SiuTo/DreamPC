@@ -7,6 +7,12 @@ source("score.R")
 source(paste(model, "/train_", question, ".R", sep=""))
 
 data <- read.csv("data/data_train.csv")
+#if (question=="2")
+#{
+#	index1 <- which(data$DISCONT==1)
+#	index0 <- sample(which(data$DISCONT==0), length(index1))
+#	data <- data[sample(c(index1, index0)), ]
+#}
 folds <- split(1:nrow(data), 1:10)
 score <- c()
 
@@ -40,7 +46,10 @@ if (question=="1")
 		dtrain <- data.frame(data[-folds[[i]],])
 		dtest <- data.frame(data[folds[[i]],])
 		flag <- dtest$DISCONT
-		dtest$DISCONT <- 0
+		index <- c(which(flag==1), which(flag==2))
+		flag[index] <- 1
+		flag[-index] <- 0
+	#	dtest$DISCONT <- 0
 		write.csv(dtrain, paste(model, "/data_train_", i-1, ".csv", sep=""), quote=FALSE, row.names=FALSE)
 		write.csv(dtest, paste(model, "/data_test_", i-1, ".csv", sep=""), quote=FALSE, row.names=FALSE)
 

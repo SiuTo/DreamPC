@@ -15,8 +15,6 @@ train <- function(dtrain, dtest)
 	cat("\tPredicting...\n")
 	rf.pred <- predict(rf.obj, dtest, na.action="na.impute")
 
-	print(head(rf.pred$predicted))
-
-	return(rf.pred$predicted[, "1"])
+	return(rf.pred$predicted[, "1"]+rf.pred$predicted[, "2"])
 }
 
