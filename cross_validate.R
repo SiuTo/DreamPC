@@ -7,10 +7,11 @@ source("score.R")
 source(paste(model, "/train_", question, ".R", sep=""))
 
 data <- read.csv("data/data_train.csv")
-folds <- split(1:nrow(data), 1:10)
 score <- c()
 
 if (question=="1")
+{
+	folds <- split(1:nrow(data), 1:10)
 	for (i in 1:10)
 	{
 		dtrain <- data.frame(data[-folds[[i]],])
@@ -34,8 +35,11 @@ if (question=="1")
 		score <- rbind(score, round(c(a$cIndex, a$auc12, a$auc18, a$auc24, a$iAUC, b), 3))
 
 		cat("\tFinish.\n\n")
-	}else
-	for (i in 1:1)
+	}
+}else
+{
+	folds <- split(1:nrow(data), 1:4)
+	for (i in 1:4)
 	{
 		dtrain <- data.frame(data[-folds[[i]],])
 		dtest <- data.frame(data[folds[[i]],])
@@ -57,6 +61,7 @@ if (question=="1")
 
 		cat("\tFinish.\n\n")
 	}
+}
 
 avg <- c()
 for (i in 1:ncol(score))
