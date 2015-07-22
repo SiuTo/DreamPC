@@ -3,8 +3,12 @@ Prostate Cancer DREAM Challenge
 
 ## Dependences
 * [xgboost](https://github.com/dmlc/xgboost)
-* [timeROC](http://cran.r-project.org/web/packages/timeROC/index.html)
-* [randomForestSRC](http://cran.r-project.org/web/packages/randomForestSRC/index.html)
+* R packages
+  * [timeROC](http://cran.r-project.org/web/packages/timeROC/index.html)
+  * [randomForestSRC](http://cran.r-project.org/web/packages/randomForestSRC/index.html)
+  * [survival](https://cran.r-project.org/web/packages/survival/index.html)
+  * [glmnet](https://cran.r-project.org/web/packages/glmnet/index.html)
+
 
 ## Usage
 * Data generation:
