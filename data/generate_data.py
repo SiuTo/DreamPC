@@ -77,10 +77,8 @@ def loadData(dataFileName, flag):
 			data[i][15] = "2"
 		elif data[i][15]=="White":
 			data[i][15] = "3"
-		elif data[i][15]=="Hispanic":
+		else:
 			data[i][15] = "4"
-		elif data[i][15]=="Other":
-			data[i][15] = "5"
 
 		# HGTBLCAT
 		if data[i][18]=="":
@@ -106,20 +104,16 @@ def loadData(dataFileName, flag):
 		# REGION_C
 		if data[i][21]=="MISSING":
 			data[i][21] = "."
-		elif data[i][21]=="AFRICA":
-			data[i][21] = "1"
-		elif data[i][21]=="ASIA/PACIFIC":
-			data[i][21] = "2"
 		elif data[i][21]=="EASTERN EUROPE":
-			data[i][21] = "3"
+			data[i][21] = "1"
 		elif data[i][21]=="WESTERN EUROPE":
-			data[i][21] = "4"
+			data[i][21] = "2"
 		elif data[i][21]=="NORTH AMERICA":
-			data[i][21] = "5"
+			data[i][21] = "3"
 		elif data[i][21]=="SOUTH AMERICA":
-			data[i][21] = "6"
-		elif data[i][21]=="OTHER":
-			data[i][21] = "7"
+			data[i][21] = "4"
+		else:
+			data[i][21] = "5"
 
 		# NON_TARGET-MHVASC
 		for j in range(54, 131):
