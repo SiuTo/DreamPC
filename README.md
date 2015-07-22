@@ -18,6 +18,18 @@ cp features/file_name.txt features_list.txt
 ./generate.py
 ```
 
+* Data imputation(random forest)
+```
+cd rfsrc
+./impute.R
+```
+
+* Feature selection(lasso)
+```
+cd glm
+./lasso.R
+```
+
 * Cross validation:
 ```
 ./cross_validate.R question_index model_name
