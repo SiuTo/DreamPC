@@ -7,6 +7,10 @@ source("score.R")
 source(paste(model, "/train_", question, ".R", sep=""))
 
 data <- read.csv("data/data_train.csv")
+if (any(colnames(data)=="DISCONT")) data$DISCONT <- factor(data$DISCONT, ordered=FALSE)
+if (any(colnames(data)=="AGEGRP2")) data$AGEGRP2 <- factor(data$AGEGRP2, ordered=TRUE)
+if (any(colnames(data)=="RACE_C")) data$RACE_C <- factor(data$RACE_C, ordered=FALSE)
+if (any(colnames(data)=="REGION_C")) data$REGION_C <- factor(data$REGION_C, ordered=FALSE)
 score <- c()
 
 if (question=="1")
@@ -51,11 +55,7 @@ if (question=="1")
 		write.table(dpred, paste(model, "/pred_2_", i-1, ".txt", sep=""), quote=FALSE, row.names=FALSE, col.names=FALSE)
 		
 		cat("\tEvaluating...\n")
-		flag <- dtest$DISCONT
-		index <- which(flag==1 | flag==2)
-		flag[index] <- 1
-		flag[-index] <- 0
-		auc <- score_q2(dpred, flag)
+		auc <- score_q2(dpred, dtest$DISCONT==1 | dtest$DISCONT==2)
 
 		score <- rbind(score, round(auc, 3))
 
