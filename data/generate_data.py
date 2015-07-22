@@ -115,6 +115,10 @@ def loadData(dataFileName, flag):
 		else:
 			data[i][21] = "5"
 
+		# ECOG_C
+		#if data[i][25]=="3":
+		#	data[i][25] = "."
+
 		# NON_TARGET-MHVASC
 		for j in range(54, 131):
 			if data[i][j]=="":
