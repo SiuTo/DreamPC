@@ -4,16 +4,11 @@ question <- commandArgs(TRUE)[1]
 model <- commandArgs(TRUE)[2]
 
 source("score.R")
+source("rfsrc/factor.R")
 source(paste(model, "/train_", question, ".R", sep=""))
 
 data <- read.csv("data/data_train.csv")
-if (model=="rfsrc")
-{
-	if (any(colnames(data)=="DISCONT")) data$DISCONT <- factor(data$DISCONT, ordered=FALSE)
-	if (any(colnames(data)=="AGEGRP2")) data$AGEGRP2 <- factor(data$AGEGRP2, ordered=TRUE)
-	if (any(colnames(data)=="RACE_C")) data$RACE_C <- factor(data$RACE_C, ordered=FALSE)
-	if (any(colnames(data)=="REGION_C")) data$REGION_C <- factor(data$REGION_C, ordered=FALSE)
-}
+if (model=="rfsrc") data <- toFactors(data)
 score <- c()
 
 if (question=="1")

@@ -37,8 +37,8 @@ cd glm
 
 * Submission:
 ```
-./final.R model_name
-./merge_submission.py model_name
+./final.R question_index model_name
+./merge_submission.py question_index model_name
 ```
 
 * Clean:
