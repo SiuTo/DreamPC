@@ -13,9 +13,10 @@ train <- function(dtrain, dtest)
 
 	cat("\tPredicting...\n")
 	xx <- as.matrix(dtest[, -(1:2)])
+	dpred_train <- predict(fit, newx=x, s=lambda, type="response")
 	dpred_1a <- predict(fit, newx=xx, s=lambda, type="response")
 	dpred_1b <- predict(fit, newx=xx, s=lambda, type="link")
 
-	return(list(a=dpred_1a, b=dpred_1b))
+	return(list(a_train=dpred_train, a=dpred_1a, b=dpred_1b))
 }
 

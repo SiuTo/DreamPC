@@ -31,13 +31,15 @@ if (question=="1")
 		write.table(dpred$b, paste(model, "/pred_1b_", i-1, ".txt", sep=""), quote=FALSE, row.names=FALSE, col.names=FALSE)
 		
 		cat("\tEvaluating...\n")
+		a_train <- score_q1a(dtrain$LKADT_P, dtrain$DEATH, dpred$a_train)
 		a <- score_q1a(time, status, dpred$a)
 		b <- score_q1b(dpred$b, time, status)
 
-		score <- rbind(score, round(c(a$cIndex, a$auc12, a$auc18, a$auc24, a$iAUC, b), 3))
+		score <- rbind(score, round(c(a$cIndex, a$auc12, a$auc18, a$auc24, a_train$iAUC, a$iAUC, b), 3))
 
 		cat("\tFinish.\n\n")
 	}
+	colnames(score) <- c("cIndex", "auc12", "auc18", "auc24", "iAUC_train", "iAUC", "RMSE")
 }else
 {
 	folds <- split(1:nrow(data), 1:4)

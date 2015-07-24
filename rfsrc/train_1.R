@@ -20,6 +20,6 @@ train <- function(dtrain, dtest)
 	rf.pred <- predict(rf.time, dtest[, -2], na.action="na.impute")
 	dpred_1b <- round(rf.pred$predicted)
 
-	return(list(a=dpred_1a, b=dpred_1b))
+	return(list(a_train=rf.risk$predicted, a=dpred_1a, b=dpred_1b))
 }
 
