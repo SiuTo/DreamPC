@@ -10,9 +10,11 @@ Prostate Cancer DREAM Challenge
   * [glmnet](https://cran.r-project.org/web/packages/glmnet/index.html)
 
 ## Documentation
+
 ### Data Generation
 * 对训练集和测试集的每个feature的缺失情况和值的分布进行简单统计，并记录在表distribution.csv和table.csv
 * 根据各自的分布对feature DISCONT，AGEGRP2, RACE_C, HGTBLCAT, WGTBLCAT, REGION_C进行重编码
+* 对为连续值的features进行normalization, 使之均值为0，标准差为1
 * 去掉无意义和在训练集或测试集缺失较多(>1000)的features，手工选出features/advance.txt中的80个特征
 * 对于缺失较少(<100)的features，将对应的samples去掉；缺失较多的特征则用random forest或KNN进行填补
 * 用lasso+cox从80个features中选出21个较相关的features，记录于features/lasso.txt
