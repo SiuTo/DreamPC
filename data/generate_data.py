@@ -173,9 +173,7 @@ def loadData(dataFileName, flag):
 				continue
 		else:
 			for x in choose:
-				if data[0][x]=="LKADT_P":
-					data[i][x] = "0"
-				elif data[i][x]==".":
+				if data[i][x]==".":
 					data[i][x] = "NA"
 		rows.append([data[i][x] for x in choose])
 	
@@ -194,8 +192,10 @@ distriCSV = csv.writer(open("distribution.csv", "w"))
 distribution = [["Feature", "# of Missing in train", "# of Positive in train", "# of Missing in test", "# of Positive in test", "# of Missing in validation", "# of positive in validation"]]
 mean = [0]*130
 deviation = [0]*130
-loadData("CoreTable_training.csv", "train")
-loadData("CoreTable_leaderboard.csv", "test")
-loadData("CoreTable_validation.csv", "test")
+#loadData("CoreTable_training.csv", "train")
+#loadData("CoreTable_leaderboard.csv", "test")
+#loadData("CoreTable_validation.csv", "test")
+loadData("Training_set.csv", "train")
+loadData("Test_set.csv", "test")
 distriCSV.writerows(distribution)
 

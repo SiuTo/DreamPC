@@ -1,8 +1,11 @@
+#! /usr/bin/env Rscript
+
+library(yaImpute)
+#library(fastICA)
+#library(vegan)
+
 imputation <- function(train,distance_measure = 'raw',imputation_measure = 'mean',k = 10)
 {
-  library(yaImpute)
-  library(fastICA)
-  library(vegan)
   
   na_columns <- which(apply(train,2,function(x) any(is.na(x))))
   
@@ -20,6 +23,5 @@ imputation <- function(train,distance_measure = 'raw',imputation_measure = 'mean
   }
   
   return(train)
-  
-  
 }
+
