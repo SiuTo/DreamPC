@@ -24,10 +24,10 @@ if (question=="1")
 		dtest$LKADT_P <- 0
 		dtest$DEATH <- 1
     
-		#dtrain <- imputation(dtrain)
-		#dtest <- imputation(rbind(dtest[,-(1:2)],dtrain[,-(1:2)]))[1:nrow(dtest),]
-		#dtest <- cbind(0,1,dtest)
-		#colnames(dtest)[1:2] <- c("LKADT_P", "DEATH")
+		dtrain <- imputation(dtrain)
+		dtest <- imputation(rbind(dtest[,-(1:2)],dtrain[,-(1:2)]))[1:nrow(dtest),]
+		dtest <- cbind(0,1,dtest)
+		colnames(dtest)[1:2] <- c("LKADT_P", "DEATH")
     
 		write.csv(dtrain, paste(model, "/data_train_", i-1, ".csv", sep=""), quote=FALSE, row.names=FALSE)
 		write.csv(dtest, paste(model, "/data_test_", i-1, ".csv", sep=""), quote=FALSE, row.names=FALSE)

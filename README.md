@@ -8,6 +8,8 @@ Prostate Cancer DREAM Challenge
   * [randomForestSRC](http://cran.r-project.org/web/packages/randomForestSRC/index.html)
   * [survival](https://cran.r-project.org/web/packages/survival/index.html)
   * [glmnet](https://cran.r-project.org/web/packages/glmnet/index.html)
+  * [gbm](https://cran.r-project.org/web/packages/gbm/index.html)
+  * [yaImpute](https://cran.r-project.org/web/packages/yaImpute/index.html)
 
 ## Documentation
 

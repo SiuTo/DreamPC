@@ -8,6 +8,7 @@ testFile = open("Test_set.csv", "w")
 lines = originFile.readlines()
 colnames = lines[0]
 del lines[0]
+random.seed(10)
 random.shuffle(lines)
 pos = len(lines)//10
 trainFile.writelines([colnames]+lines[pos:])
