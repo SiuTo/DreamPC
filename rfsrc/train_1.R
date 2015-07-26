@@ -7,7 +7,7 @@ options(rf.cores=detectCores()-1, mc.cores=detectCores()-1)
 train <- function(dtrain, dtest)
 {
 	cat("\tTraining...\n")
-	rf.risk <- rfsrc(Surv(LKADT_P, DEATH) ~ ., dtrain, nsplit=2, na.action="na.impute")
+	rf.risk <- rfsrc(Surv(LKADT_P, DEATH) ~ ., dtrain, nsplit=3, na.action="na.impute")
 	rf.time <- rfsrc(LKADT_P ~ ., dtrain[, -2], na.action="na.impute")
 
 	cat("\tPredicting...\n")

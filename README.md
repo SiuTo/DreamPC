@@ -25,7 +25,7 @@ Prostate Cancer DREAM Challenge
 * 先对samples的顺序打乱，然后将训练集分成10份，每一份都作为测试集、其余作为训练集，测试10次
 
 ### Evaluation
-* 采用官方提供的脚本进行评测
+* 采用官方提供的脚本score.R进行评测
 * 1a采用iAUC，1b采用RMSE，第二问采用P-R curve的AUC
 
 ### Training & Prediction
@@ -45,6 +45,7 @@ Prostate Cancer DREAM Challenge
 * Data generation:
 ```
 cd data
+./split.py
 cp features/file_name.txt features_list.txt
 ./generate.py
 ```
@@ -64,6 +65,11 @@ cd glm
 * Cross validation:
 ```
 ./cross_validate.R question_index model_name
+```
+
+* Evaluation:
+```
+../test.R question_index model_name
 ```
 
 * Submission:
