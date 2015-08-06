@@ -1,5 +1,7 @@
-# Dream2015
+# DreamPC
 Prostate Cancer DREAM Challenge
+
+Because of the data Terms of use, the data sets were removed here.
 
 ## Dependences
 * [xgboost](https://github.com/dmlc/xgboost)
@@ -82,4 +84,7 @@ cd glm
 ```
 make clean
 ```
+
+## License
+Code released under [the BSD license](https://github.com/SiuTo/DreamPC/blob/master/LICENSE).
 
